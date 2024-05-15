@@ -2,6 +2,7 @@
 This repository contains resource for a sonification platform for chemical sensors developed with Pure Data.
 
 The introduction video of the final design is here: https://youtu.be/-I8y_FUYg9Q
+
 An audio playlist with all the prototype samples is here: https://soundcloud.com/yuna-787448399/sets/audio-samples-of-prototypes
 
 

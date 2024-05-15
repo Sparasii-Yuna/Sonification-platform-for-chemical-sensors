@@ -1,85 +1,100 @@
 # Sonification-platform-for-chemical-sensors
-This repository contains resource for a sonification platform for chemical sensors developed with Pure Data.
+Welcome to the Sonification Platform for Chemical Sensors repository! This project focuses on developing a sonification platform using Pure Data to translate data from chemical sensors into sound, aiding in real-time monitoring and analysis.
 
-The introduction video of the final design is here: https://youtu.be/-I8y_FUYg9Q
+## Introduction
+In this project, we have created a sonification platform utilizing Pure Data (Pd) to convert data from chemical sensors into audible sounds. The platform offers an innovative approach to sensor data analysis, enabling users to perceive and interpret sensor readings through sound.
 
-An audio playlist with all the prototype samples is here: https://soundcloud.com/yuna-787448399/sets/audio-samples-of-prototypes
+
+## Repository Structure
+```
+|-- README.md                 # Introduction and usage guidelines
+|-- SonificationFinal.pd      # Main Pure Data patch for sonification
+|-- audio_samples             # Folder containing audio samples
+|   |-- alert.wav             # Audio sample for the patch
+|   |-- CueSample-ONE.wav     # Audio sample for the patch
+|   |-- CueSample-TWO.wav     # Audio sample for the patch
+|   |-- CueSample-THREE.wav   # Audio sample for the patch
+|   |-- CueSample-FOUR.wav    # Audio sample for the patch
+|-- datasets                  # Folder containing datasets
+|   |-- test_chn1.txt         # Dataset for channel 1
+|   |-- test_chn2.txt         # Dataset for channel 2
+|   |-- ...                   # Other datasets for channels
+|-- original_dataset          # Folder containing the original dataset
+|   |-- [Sonification]K and NH4.xlsx   # Original dataset
+|-- resources
+|   |-- introduction_video.md # Markdown file with link to the introduction video
+|   |-- audio_playlist.md     # Markdown file with link to the audio playlist
+```
 
 
-## SonificationFinal.pd
-This is a patch for sonification PureData patch.
+## Usage Guidelines
+### 1. Pure Data Patch:
+  - Use `SonificationFinal.pd` as the main Pure Data patch for sonification.
+  
+  - Ensure you have Pure Data installed to run this patch.
+  
+  - Required external dependency: freeverb~.
+  
+  - Guideline for running the patch:
 
-You need to download PureData to run this patch.
+    ```
+    block size setting as 256 is recommended.
 
-also need freeverb~
+    After run the patch (Seq1-4 is already connected to Chn13-16 playback system.)
+    Need to set the volume for <CHN13-16> <Speech Cues> and <Click Sound>
 
-block size 256 is recommended.
-------------------------------------------------------------------------------------------------------------------
-Files Description:
-SonificationFinal.pd                		<executable puredata patch>
+    Recommend levels are: 86dB, 91dB and 100dB
 
-alert.wav				<audio sample for the patch>
+    The green button is for start/stop playing.
 
-CueSample-ONE.wav		<audio sample for the patch>
+    Click the green button to start a sonification session for data from Chn13-16.
 
-CueSample-TWO.wav		<audio sample for the patch>
+    Chn14 is the target problematic sensor we want to identify by this patch in this session.
 
-CueSample-THREE.wav		<audio sample for the patch>
+    Click sounds will be observed in the beginning of a session for about 1 minute in other sensors Chn13, Chn15 and Chn16
 
-CueSample-FOUR.wav		<audio sample for the patch>
+    But for Chn14, click sounds still frequently appear after 1 minute, which indicates it is problematic (acting very noisy)
+    ```
+    
+    > #### Variables explanation:
 
-test_chn1.txt			<dataset for channel1>
+    ```
+    RangeforNote(Scaling ratio control)  			#inside pdUpdateWindow
 
-test_chn2.txt			<dataset for channel2>
+    basicLoop(dataReadin rate)                			#inside pdUpdateWindow
 
-test_chn3.txt			<dataset for channel3>
+    Duration of a whole group                  			#inside pdtrigger
 
-test_chn4.txt			<dataset for channel4>
+    Interval between speech cue and note sequence 	#inside pdtrigger
 
-test_chn13.txt			<dataset for channel13>
+    IOI						#inside pdreadChn[xx]>>pdreadWindow
 
-test_chn14.txt			<dataset for channel14>
+    AlertRange1(AlertThreshold positive)			#inside pdAlert
 
-test_chn15.txt			<dataset for channel15>
+    AlertRange2(AlertThreshold negative)			#inside pdAlert
+    ```
 
-test_chn16.txt			<dataset for channel16>
 
-[Sonification]K and NH4.xlsx		<original dataset>
+      
 
-________________________________________________________________________________________________________
-Guideline for running the patch:
+### 2. Audio Samples:
+  - Find audio samples used in the patch inside the `audio_samples` folder.
 
-After run the patch (Seq1-4 is already connected to Chn13-16 playback system.)
+### 3. Datasets:
+  - Access datasets for 16 channels of sensors used for testing and development in the `datasets` folder.
 
-- You need to set the the volume for <CHN13-16> <Speech Cues> and <Click Sound>
+### 4. Orginal Dataset:
+  - Explore the original dataset used for developing the sonification platform in the original_dataset folder.
+  
+  - This dataset served as the foundation for creating the sonification algorithms.
 
-Recommend levels are:                         86dB,               91dB   ,                       100dB
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-The green button is for start/stop playing.
+## Additional Resources
+- ### Introduction Video:
 
-- Click the green button to start a sonification session for data from Chn13-16.
+  - View the introduction video showcasing the final design [here](https://youtu.be/-I8y_FUYg9Q).
 
-Chn14 is the target problematic sensor we want to identify by this patch in this session.
+- ### Audio Playlist:
 
-Click sounds will be observed in the beginning of a session for about 1 minute in other sensors Chn13, Chn15 and Chn16
-
-But for Chn14, click sounds still frequently appear after 1 minute, which indicates it is problematic (acting very noisy) 
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-Variables：
-
-RangeforNote(Scaling ratio control)  			inside pdUpdateWindow
-
-basicLoop(dataReadin rate)                			inside pdUpdateWindow
-
-Duration of a whole group                  			inside pdtrigger
-
-Interval between speech cue and note sequence 	inside pdtrigger
-
-IOI						inside pdreadChn[xx]>>pdreadWindow
-
-AlertRange1(AlertThreshold positive)			inside pdAlert
-
-AlertRange2(AlertThreshold negative)			inside pdAlert
+  - Listen to the audio playlist featuring samples of different iterations [here](https://soundcloud.com/yuna-787448399/sets/audio-samples-of-prototypes).
